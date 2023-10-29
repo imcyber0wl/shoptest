@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+{% load static %}    
+<link rel="stylesheet" href="{% static 'mycss.css' %}">
+{% include 'navbar.html' %}
+<head> </head>
+
+<body> 
+<input type="hidden" value="cart" id="cart_token"><br>
+
+<div style="margin-bottom:-1px;" class="bg-dark container">
+<center><h1 class="text-light">Cart Summary</h1><br></center>
+<h3 class="text-light">Items in cart: {{q}}   Total price: ${{x|floatformat:2}}</h3>
+<a href="../checkout/"><button class="btn btn-success"> Checkout </button></a>
+<br> 
+
+</div>
+
+<div class="container pt-3 pr-5 border border-secondary" >
+
+
+{% for item in items %}
+<div class="d-flex align-items-center mb-5">
+                  <div class="flex-shrink-0">
+                    <img src="{{MEDIA_URL}}{{item.product.image}}" class="img-fluid" style="width: 150px;" >
+
+                  </div>
+                  <div class="flex-grow-1 ms-3">
+{% if item.color == None %}
+<h5 class="text-primary">{{ item.product.name }}</h5>
+
+{% else %}
+<h5 class="text-primary">{{ item.product.name }} 
+
+{%if item.color == 'color1' %}
+
+({{item.product.color1}})
+
+{% elif item.color == 'color2' %}
+
+
+({{item.product.color2}})
+
+{% elif item.color == 'color3' %}
+
+
+({{item.product.color3}})
+
+{% elif item.color == 'color4' %}
+
+
+({{item.product.color4}})
+
+{% endif %}
+
+</h5>
+
+{% endif %} 
+
+
+
+                    <div class="d-flex align-items-center">
+
+                      <p class="fw-bold mb-0 me-5 pe-3">{{item.product.price|floatformat:2}}$</p>
+
+                      <div class="def-number-input number-input safari_only">
+
+<div style="flex:1">
+<button data-product="{{item.product.id}}" data-action="add" data-color="{{item.color}}" class="btn bg-primary update-cart" >
++</button>
+<h3>{{ item.quantity }}</h3>
+<button data-product="{{item.product.id}}" data-action="remove" data-color="{{item.color}}" class="btn bg-primary update-cart" >
+-</button>
+<!--onclick="updateUserOrder('{{item.product.id}}','remove','{{item.color}}')" -->
+
+                      </div>
+<p class="fw-bold mb-0 me-5 pe-3">Total: {{item.get_total|floatformat:2}}$</p>
+                    </div>
+                  </div>
+                </div>
+
+
+</div>
+ {% endfor %}
+
+</body>
+
+<script>
+var user="{{request.user}}"
+function getCookie(name) {
+    let cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+        const cookies = document.cookie.split(';');
+        for (let i = 0; i < cookies.length; i++) {
+            const cookie = cookies[i].trim();
+            // Does this cookie string begin with the name we want?
+            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
+}
+const csrftoken = getCookie('csrftoken');
+
+</script>
+
+{% load static %}
+<script type="text/javascript" src="{% static 'cart.js' %}">
+</script>
+</html>
