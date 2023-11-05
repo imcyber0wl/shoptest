@@ -4,10 +4,10 @@ from .models import *
 from django.http import JsonResponse
 from .forms import *
 import json
-from myshop.settings import MEDIA_ROOT, MEDIA_URL,STATIC_URL
+from myshop.settings import STATIC_URL #, MEDIA_ROOT, MEDIA_URL
 from django.core.paginator import Paginator
 # Create your views here.
-
+MEDIA_URL=STATIC_URL
 def store_view(request):
     pageno=1
     try:
