@@ -127,7 +127,7 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'statics')
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 #MEDIA_ROOT = os.path.join(BASE_DIR, 'static/images') # uploaded images go here! 
-MEDIA_URL=STATIC_URL#'/images/'#STATIC_URL+'images/' 
+#MEDIA_URL=STATIC_URL#'/images/'#STATIC_URL+'images/' 
 
 
 # Default primary key field type
